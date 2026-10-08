@@ -1,0 +1,113 @@
+
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage{cite}
+\usepackage{hyperref}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+
+\title{A blockchain-based solution for the incentivisation of market-linked upskilling in South African labour markets}
+
+\author{\IEEEauthorblockN{1\textsuperscript{st} Thomas Scholtz}
+	\IEEEauthorblockA{\textit{Department of Computer Science} \\
+		\textit{University of Stellenbosch}\\
+		Stellenbosch, South Africa \\
+		21681147@sun.ac.za}
+	\and
+	\IEEEauthorblockN{2\textsuperscript{nd} Brink Van Der Merwe}
+	\IEEEauthorblockA{\textit{Department of Computer Science} \\
+		\textit{University of Stellenbosch}\\
+		Stellenbosch, South Africa \\
+		abvdm@sun.ac.za}
+
+}
+
+\maketitle
+
+\begin{abstract}
+	Blockchain technology has proven to be useful for basic applications such as peer-to-peer electronic cash systems i.e., Bitcoin~\cite{nakamoto2008bitcoin}.  Since this milestone, the technology has evolved to support advanced applications which require more elaborate feature sets. Ethereum~\cite{buterin2014ethereum} is an example of one such form of blockchain technology that allows public deployment of capture-resistant, permissionless contracts, resulting in a public platform on which users may design systems that facilitate social interactions.
+
+	This paper proposes a blockchain-based solution for the incentivisation of market-linked upskilling in South African labour markets with intent to address persistent unemployment in Stellenbosch, South Africa - a problem that is hypothesized to be due in part to the cold-start problem of underprivileged individuals in a dual-speed economy.
+
+	The incentive scheme comprises three blockchain solutions: incentive tokens disbursed to learners on completion of course milestones, verified credentials assigned to learners for completion of courses, and impact certificates (cite) awarded to educators for the effective upskilling of learners via courses.
+	The solution is investigated in distinct parts and as a whole by: architecting the components of the solution; simulating the emergent scheme as a sum of the solutions; and surveying relevant stakeholders on the perceived efficacy of such a solution with respect to resolving local unemployment in Stellenbosch.
+
+\end{abstract}
+
+\begin{IEEEkeywords}
+	blockchain, tokenomics, Ethereum, incentivisation, unemployment
+\end{IEEEkeywords}
+
+\section{Introduction}
+Blockchain technology has proven to be useful for applications ranging from peer-to-peer electronic cash systems such as Bitcoin~\cite{nakamoto2008bitcoin} to general-purpose computing platforms such as Ethereum~\cite{buterin2014ethereum}. Ethereum offers a Turing-complete scripting environment that enables developers to encode arbitrary rules for ownership, transaction formats, and state transitions. This potential has given rise to a large and growing class of decentralized applications (DApps), with recent surveys cataloguing thousands of DApps deployed in domains such as finance, gaming, governance, and identity~\cite{zheng2023dapp}. The emergence of a composable platform with fundamental properties of decentralization, persistence, and auditability poses a strong case for the design of systems that address pressing systemic social challenges.
+
+Realising ambitious application-layer systems on Ethereum has historically been constrained by the base layer's limited throughput and high transaction costs. A substantial body of recent work addresses these constraints through Layer 2 (L2) scaling architectures, including state channels, side chains, and, most prominently, optimistic zero-knowledge rollups~\cite{sguanci2021layer2,thibault2022rollups}. Rollup-based L2s now offer orders-of-magnitude higher throughput while inheriting the security guarantees of the underlying L1, rendering them sufficiently mature to reliably host production-scale social and economic applications. It is recognized that are there still pressing technical challenges to be overcome by the Ethereum network (cite); however, the existing utility offered by the network is sufficient for the purposes of this research. The maturity of the network is confirmed by an accelerated interest in blockchain for social good. Sansone et al ~\cite{sansone2023blockchain} identify reliability, transparency, decentralization, and accessibility as the properties through which blockchain can support social innovation, while earlier work documents proof-of-concept deployments spanning humanitarian aid, supply-chain transparency, digital identity, and philanthropy~\cite{marino2018blockchain}. Much of this work nevertheless remains exploratory, with limited engagement with specific, deeply rooted socio-economic problems in a particular context.
+
+South Africa presents one such context. Youth unemployment has persisted above forty-five percent for more than a decade and, in Stellenbosch in particular, is driven in significant part by a dual-speed economy in which underprivileged entrants face a structural cold-start problem: they cannot acquire market-relevant experience without initial access to the labour market, and cannot access the labour market without prior experience or at least highly relevant skills (mostly gated by experience in labour markets) ~\cite{bhorat2016youth,graham2015youth,francis2019inequality}.
+Supply-side interventions targeting general employment skills alone have been shown to be insufficient; they must be coupled with demand-side incentives that connect learners, educators, and employers ~\cite{mckenzie2017almp,bhorat2016youth}. It is reasonable to suggest that sophisticated incentives for employers to inform the upskilling of the unemployed may create the appropriate dynamic that is needed for impactful unemployment intervention. There are three benefits in such a dynamic that are immediately apparent: the unemployed learn skills that are highly relevant for employment; the employers are able to `pre-train' motivated individuals in the unemployed population; both the potential employees and employer-educators are rewarded with financial incentive. Critically, the cold-start problem, where unemployed individuals lack the means to provide for themselves in the short-term, is accounted for by design of the disbursement of incentive tokens on completion of course milestones, which can be used to purchase basic goods at a network of pre-approved vendors. The choice of the form of the incentive token is studied in this paper. The underlying value of the incentive token is either funded by government municipalities, or by Corporate Social Responsibility programs of the employer-educators.
+
+The focus of this paper is on the technical feasibility of such a system with the large assumption that diagnosis of the problem and the proposed solution are accurate/valid with respect to a social studies perspective. This work attempts to theoretically prove the implementation of the proposed solution, thereby justifying it as a potential solution, rather than prove that the proposed solution is indeed the correct solution to the problem of persistent unemployment in Stellenbosch.
+
+The overall solution, referred to as the incentivisation scheme, is composed of three interrelated solutions: fungible incentive tokens disbursed to learners on the completion of course milestones; non-transferable, or soulbound, credential tokens assigned to learners for course completion, in accordance to the decentralized society proposal of Weyl et al.~\cite{weyl2022decentralized}; and impact certificates~\cite{dalrymple2022hypercerts} awarded to educators for the effective upskilling of learners. The combined ecosystem is designed using frameworks that treat incentive design, governance, and tokenomics as interdependent pillars of a token economy~\cite{oliveira2018token,kivilo2026designing,sadykhov2023detect}. The remainder of the paper architects each component, simulates the resulting system to study its tokenomics and tune parameters, and surveys stakeholders on the perceived efficacy of such a scheme in addressing structural unemployment.
+
+\section{Background and Related Work}
+\section{System Architecture}
+\subsection{Stakeholder Ontology and Requirements}
+\subsection{Overview and Actor/Flow Diagram}
+\subsection{Incentive Tokens}
+\subsection{Credential Tokens}
+\subsection{Employer-Educator Impact Certificates}
+\subsection{Integration and On-chain Interactions}
+\section{Simulation}
+\section{Stakeholder Survey}
+\section{Discussion}
+\subsection{Threats to Validity}
+\subsection{Deployment and Regulatory Considerations}
+\subsection{Limitations}
+\subsection{Future Work}
+\section{Conclusion}
+
+\begin{thebibliography}{00}
+	\bibitem{nakamoto2008bitcoin} S. Nakamoto, ``Bitcoin: A peer-to-peer electronic cash system,'' 2008. [Online]. Available: https://bitcoin.org/bitcoin.pdf
+
+	\bibitem{buterin2014ethereum} V. Buterin, ``A next-generation smart contract and decentralized application platform,'' Ethereum White Paper, 2014. [Online]. Available: https://ethereum.org/en/whitepaper/
+
+	\bibitem{zheng2023dapp} P. Zheng, Z. Jiang, J. Wu, and Z. Zheng, ``Blockchain-based decentralized application: A survey,'' \emph{IEEE Open Journal of the Computer Society}, vol.~4, pp.~121--133, 2023, doi: 10.1109/OJCS.2023.3251854.
+
+	\bibitem{sguanci2021layer2} C. Sguanci, R. Spatafora, and A. M. Vergani, ``Layer 2 blockchain scaling: A survey,'' 2021, arXiv:2107.10881. [Online]. Available: https://arxiv.org/abs/2107.10881
+
+	\bibitem{thibault2022rollups} L. T. Thibault, T. Sarry, and A. S. Hafid, ``Blockchain scaling using rollups: A comprehensive survey,'' \emph{IEEE Access}, vol.~10, pp.~93039--93054, 2022, doi: 10.1109/ACCESS.2022.3200051.
+
+	\bibitem{sansone2023blockchain} G. Sansone, D. Leone, and F. Schiavone, ``Blockchain for social good and stakeholder engagement: Evidence from a case study,'' \emph{Corporate Social Responsibility and Environmental Management}, vol.~30, no.~5, pp.~2182--2192, 2023, doi: 10.1002/csr.2477.
+
+	\bibitem{marino2018blockchain} F. Marino and A. Juels, ``Blockchain for social good,'' in \emph{Proc. 4th EAI Int. Conf. Smart Objects and Technologies for Social Good (GoodTechs)}, Bologna, Italy, 2018, pp.~166--168, doi: 10.1145/3284869.3284881.
+
+	\bibitem{bhorat2016youth} H. Bhorat, A. Cassim, and D. Tseng, ``The state of youth unemployment in South Africa,'' Brookings Institution, Washington, DC, Policy Brief, 2016.
+
+	\bibitem{graham2015youth} L. Graham and C. Mlatsheni, ``Youth unemployment in South Africa: Understanding the challenge and working on solutions,'' in \emph{South African Child Gauge 2015}, A. De Lannoy, S. Swartz, L. Lake, and C. Smith, Eds. Cape Town, South Africa: Children's Institute, University of Cape Town, 2015, pp.~51--59.
+
+	\bibitem{francis2019inequality} D. Francis and E. Webster, ``Poverty and inequality in South Africa: Critical reflections,'' \emph{Development Southern Africa}, vol.~36, no.~6, pp.~788--802, 2019, doi: 10.1080/0376835X.2019.1666703.
+
+	\bibitem{weyl2022decentralized} E. G. Weyl, P. Ohlhaver, and V. Buterin, ``Decentralized society: Finding Web3's soul,'' SSRN, Working Paper 4105763, May 2022. [Online]. Available: https://papers.ssrn.com/sol3/papers.cfm?abstract\_id=4105763
+
+	\bibitem{dalrymple2022hypercerts} D. A. Dalrymple, H. Holtebrinck, T. Kuhn, J. Miller, R. L. Ocampo, and P. Schmidt, ``Hypercerts: A new primitive for public goods funding,'' Protocol Labs, Whitepaper, 2022. [Online]. Available: https://www.protocol.ai/blog/hypercert-new-primitive/
+
+	\bibitem{oliveira2018token} L. Oliveira, L. Zavolokina, I. Bauer, and G. Schwabe, ``To token or not to token: Tools for understanding blockchain tokens,'' in \emph{Proc. 39th Int. Conf. Information Systems (ICIS)}, San Francisco, CA, USA, Dec. 2018.
+
+	\bibitem{kivilo2026designing} S. Kivilo, A. Norta, M. Hattingh, S. Avanzo, and L. Pennella, ``Designing a token economy: Incentives, governance, and tokenomics,'' 2026, arXiv:2602.09608. [Online]. Available: https://arxiv.org/abs/2602.09608
+
+	\bibitem{sadykhov2023detect} A. Sadykhov, G. Goodell, D. Dhinakaran, P. Horshalom, and P. Treleaven, ``Decentralized token economy theory (DeTEcT): Token pricing, stability and governance for token economies,'' \emph{Frontiers in Blockchain}, vol.~6, art.~1298330, 2023, doi: 10.3389/fbloc.2023.1298330.
+
+	\bibitem{mckenzie2017almp} D. McKenzie, ``How effective are active labor market policies in developing countries? A critical review of recent evidence,'' \emph{The World Bank Research Observer}, vol.~32, no.~2, pp.~127--154, 2017, doi: 10.1093/wbro/lkx001.
+
+\end{thebibliography}
+\vspace{12pt}
+
+\end{document}
