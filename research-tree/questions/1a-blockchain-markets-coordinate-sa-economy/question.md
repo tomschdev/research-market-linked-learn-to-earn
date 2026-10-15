@@ -42,3 +42,6 @@ What each candidate conclusion means here:
   Africa-specific barriers (cost, connectivity, regulation, usability, trust in the technology
   itself) cancel it out.
 
+## Rationale Rewrite
+
+TODO
