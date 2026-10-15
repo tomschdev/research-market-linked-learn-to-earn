@@ -1,0 +1,39 @@
+# Candidate conclusion definitions. A question lists the ids it may conclude with in
+# `candidate-conclusions`; ids marked always-available may conclude any question.
+# Add a new conclusion type here; the tooling reads this file generically.
+#
+#   always-available  may conclude any question without being listed as a candidate
+#   requires          what conclusion.md must contain: frontmatter fields, or `finding`
+#                     (a non-empty `## Finding` section)
+#   message           generic meaning
+#   style             mermaid classDef CSS for the diagram
+supported:
+  always-available: false
+  requires: [finding, basis]
+  message: Evidence supports the claim posed by the question.
+  style: fill:#2e7d32,stroke:#1b5e20,color:#fff
+refuted:
+  always-available: false
+  requires: [finding, basis]
+  message: Evidence contradicts the claim posed by the question.
+  style: fill:#c62828,stroke:#8e0000,color:#fff
+inconclusive:
+  always-available: true
+  requires: [finding, basis, reason]
+  message: Evidence insufficient to decide.
+  style: fill:#f9a825,stroke:#c17900,color:#000
+abandoned:
+  always-available: true
+  requires: [reason]
+  message: Dropped without answer.
+  style: fill:#eeeeee,stroke:#999,color:#666,stroke-dasharray:3 3
+deferred:
+  always-available: true
+  requires: [reason]
+  message: Left as future work.
+  style: fill:#1565c0,stroke:#0d47a1,color:#fff
+bypassed:
+  always-available: true
+  requires: [reason, bypassed_by]
+  message: Superseded by a child question.
+  style: fill:#ffffff,stroke:#666,color:#333,stroke-dasharray:5 5
