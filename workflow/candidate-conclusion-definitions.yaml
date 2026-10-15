@@ -37,3 +37,13 @@ bypassed:
   requires: [reason, bypassed_by]
   message: Superseded by a child question.
   style: fill:#ffffff,stroke:#666,color:#333,stroke-dasharray:5 5
+converged:
+  always-available: false
+  requires: [finding, basis]
+  message: The literature converges on an account; it is adopted as the working basis.
+  style: fill:#00838f,stroke:#005662,color:#fff
+contested:
+  always-available: false
+  requires: [finding, basis]
+  message: The literature holds competing accounts; the Finding states which is adopted and why.
+  style: fill:#6a1b9a,stroke:#38006b,color:#fff
